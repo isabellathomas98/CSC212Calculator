@@ -2,9 +2,10 @@ package edu.smith.cs.csc212.calc;
 
 import java.util.Arrays;
 import java.util.Collections;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+// Tokenization means to break up the input into pieces called tokens 
 
 public class TokenizerTest {
 
@@ -45,11 +46,19 @@ public class TokenizerTest {
 		String input = "(a+b-c*d/e)";
 		Assert.assertEquals(Arrays.asList("(", "a", "+", "b", "-", "c", "*", "d", "/", "e", ")"),
 				Tokenizer.tokenize(input));
+		//print input
+		System.out.println("Input:"+(input));
+		//print out output
+		System.out.println("Tokenized:"+Tokenizer.tokenize(input));
 	}
 	@Test
 	public void testVarsWS() {
 		String input = "( a +b -c * d / e)";
 		Assert.assertEquals(Arrays.asList("(", "a", "+", "b", "-", "c", "*", "d", "/", "e", ")"),
 				Tokenizer.tokenize(input));
+		//print input
+				System.out.println("Input:"+(input));
+				//print out output
+				System.out.println("Tokenized:"+Tokenizer.tokenize(input));
 	}
 }
