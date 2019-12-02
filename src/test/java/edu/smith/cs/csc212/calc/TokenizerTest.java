@@ -64,6 +64,6 @@ public class TokenizerTest {
 		System.out.println("Input:"+(input));
 		//print out output
 		System.out.println("Tokenized:"+Tokenizer.tokenize(input));
-		System.out.println("HI ISABEL");
+		System.out.println("BELLABELLABELLA");
 	}
 }
