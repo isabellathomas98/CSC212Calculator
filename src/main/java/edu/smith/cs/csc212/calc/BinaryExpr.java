@@ -16,6 +16,7 @@ public class BinaryExpr implements Expr {
 		this.right = right;
 	}
 	@Override
+	//ours should take in only strings (variables like p,q,r and operators like and or etc.)
 	public int evaluate(Map<String, Integer> vars) {
 		switch(op) {
 			case "+":

@@ -14,11 +14,21 @@ public class ExprParserTest {
 	@Test
 	public void testSub() {
 		Assert.assertEquals(-1, ExprParser.parse("1-2").evaluate());
+		//print "input expression"
+		System.out.println("Calculate 1-2");
+		//print out output
+		System.out.println("Result: "+ExprParser.parse("1-2").evaluate());
 		Assert.assertEquals(1, ExprParser.parse("3-2").evaluate());
 	}
 	@Test
 	public void testMul() {
 		Assert.assertEquals(2, ExprParser.parse("1*2").evaluate());
+		
+		//print "input expression"
+		System.out.println("Calculate 1*2");
+		//print out output
+		System.out.println("Result: "+ExprParser.parse("1*2").evaluate());
+		
 		Assert.assertEquals(6, ExprParser.parse("3*2").evaluate());
 	}
 	@Test

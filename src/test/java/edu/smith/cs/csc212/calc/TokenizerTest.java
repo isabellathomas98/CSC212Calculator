@@ -33,6 +33,10 @@ public class TokenizerTest {
 	public void testTokenizerJustNumber() {
 		String input = "1234";
 		Assert.assertEquals(Arrays.asList("1234"), Tokenizer.tokenize(input));
+		//print input
+		System.out.println("Input:"+(input));
+		//print out output
+		System.out.println("Tokenized:"+Tokenizer.tokenize(input));
 	}
 	
 	@Test(expected=RuntimeException.class)
@@ -57,8 +61,9 @@ public class TokenizerTest {
 		Assert.assertEquals(Arrays.asList("(", "a", "+", "b", "-", "c", "*", "d", "/", "e", ")"),
 				Tokenizer.tokenize(input));
 		//print input
-				System.out.println("Input:"+(input));
-				//print out output
-				System.out.println("Tokenized:"+Tokenizer.tokenize(input));
+		System.out.println("Input:"+(input));
+		//print out output
+		System.out.println("Tokenized:"+Tokenizer.tokenize(input));
+		System.out.println("HI ISABEL");
 	}
 }
