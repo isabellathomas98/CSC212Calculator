@@ -55,11 +55,11 @@ public class ExprParser {
 	}
 
 	/**
-	 * Multiplication and division should be considered highest precedence. Except
-	 * for parentheses. Every time we want to "recurse" here, we call the one that
+	 * No operators have precedence over each other, but all cede to parentheses. 
+	 * Every time we want to "recurse" here, we call the one that
 	 * knows about parentheses: readExpr.
 	 * 
-	 * @return a tree of all the multiplication/division expressions we can find.
+	 * @return a tree of all the operator expressions we can find.
 	 */
 	public Expr logExpr() {
 		Expr left = readExpr();
@@ -67,7 +67,7 @@ public class ExprParser {
 		while (position < tokens.size()) {
 			String tok = peek();
 
-			if (tok.equals("&") || tok.equals("|") || tok.equals("#") || tok.equals("~") || tok.equals(">")) {
+			if (tok.equals("&") || tok.equals("|") || tok.equals("#") || tok.equals(">")) {
 				position++;
 				Expr right = readExpr();
 				left = new BinaryExpr(tok, left, right);
@@ -79,37 +79,12 @@ public class ExprParser {
 	}
 
 	/**
-	 * Addition and subtraction should be considered lowest precedence. Every time
-	 * we want to "recurse" here, we actually call "readMulDivExpr" to give
-	 * multiplication higher precedence.
-	 * 
-	 * @return a tree of all the multiplication/division expressions we can find.
-	 */
-	public Expr readAddSubExpr() {
-		Expr left = logExpr();
-
-		while (position < tokens.size()) {
-			String tok = peek();
-
-			if (tok.equals("+") || tok.equals("-")) {
-				position++;
-				Expr right = logExpr();
-				left = new BinaryExpr(tok, left, right);
-			} else {
-				break;
-			}
-		}
-		return left;
-	}
-
-	/**
-	 * This rule reads parentheses, or negatives in front, or a number/value.
+	 * This rule reads parentheses, or negation in front, or a variable.
 	 * 
 	 * The BNF for this looks like:
 	 * <pre>
-	 * expr := '(' + addSubExpr + ')' 
-	 *       | '-' expr 
-	 *       | number 
+	 * expr := '(' + logExpr + ')' 
+	 *       | '-' expr
 	 *       | variable
 
 	 * logExpr := expr '&' expr
@@ -119,9 +94,6 @@ public class ExprParser {
 	 *             | expr '>' expr
 	 *             | expr
 	 * </pre>
-	 * 
-	 * In order for precedence to work inside a parentheses; we basically start at
-	 * the lowest level after seeing one.
 	 * 
 	 * @return the expression subtree starting from here.
 	 */
@@ -142,6 +114,6 @@ public class ExprParser {
 
 	public static Expr parse(String input) {
 		ExprParser p = new ExprParser(Tokenizer.tokenize(input));
-		return p.readAddSubExpr();
+		return p.logExpr();
 	}
 }
