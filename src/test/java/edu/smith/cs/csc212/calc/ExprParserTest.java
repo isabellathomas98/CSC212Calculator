@@ -1,6 +1,8 @@
 package edu.smith.cs.csc212.calc;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -73,10 +75,23 @@ public class ExprParserTest {
 	}
 	
 	@Test
-	public void regularVariable() {
-		Expr missing = ExprParser.parse("1+x");
-		Assert.assertEquals(4, missing.evaluate(Collections.singletonMap("x", 3)));
-		Assert.assertEquals(-2, missing.evaluate(Collections.singletonMap("x", -3)));
+	public void checkOr() {
+		Map<String, Boolean> vars = new HashMap<>();
+		vars.put("a", true);
+		vars.put("b", true);
+		Expr missing = ExprParser.parse("a | b");
+		Assert.assertEquals(true, missing.evaluate(vars));
+		vars.put("a", false);
+		Assert.assertEquals(true, missing.evaluate(vars));
+		vars.put("b", false);
+		Assert.assertEquals(false, missing.evaluate(vars));
+		vars.put("a", true);
+		Assert.assertEquals(true, missing.evaluate(vars));
+	}
+	
+	@Test
+	public void checkAnd() {
+		
 	}
 
 }

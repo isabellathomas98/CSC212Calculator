@@ -70,19 +70,15 @@ public class Tokenizer {
 			return null;
 		}
 		
-		// and = &, or = |, xor = #  not = ~, implies = >
+		// and = &, or = |, xor = #  not = ~, if/then = >
 		char ch = (char) next;
-		if (ch == 'a' || ch == 'x' || ch == 'n') {
-			return consume(3);
-		} else if (ch == 'o') {
-			return consume(2);
-		} else if (ch == 'i') {
-			return consume(7);
+		if (ch == '&' || ch == '|' || ch == '#' || ch == '~' || ch == '>' || ch == '(' || ch == ')') {
+			return consume(1);
 		}
 		
 		// Assume it's part of a number or variable:
 		StringBuilder id = new StringBuilder();
-		while (Character.isLetterOrDigit(ch)) {
+		while (Character.isLetter(ch)) {
 			id.append(ch);
 			position++;
 			next = peek();
@@ -98,9 +94,7 @@ public class Tokenizer {
 	}
 	
 	public static List<String> tokenize(String input) {
-		// creates a blank output arraylist
 		List<String> output = new ArrayList<>();
-		// creates a new tokenizer w the input string -> contains an array of the characters in the input
 		Tokenizer tok = new Tokenizer(input);
 		while(true) {
 			String token = tok.nextToken();

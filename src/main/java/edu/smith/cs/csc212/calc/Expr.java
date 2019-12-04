@@ -14,13 +14,13 @@ public interface Expr {
 	 * @param variables - the values of variables in this expression.
 	 * @return the value of the expression.
 	 */
-	public int evaluate(Map<String, Integer> variables);
+	public Boolean evaluate(Map<String, Boolean> variables);
 	
 	/**
 	 * For testing, we often don't set variables.
 	 * @return the value of this expression.
 	 */
-	public default int evaluate() {
+	public default Boolean evaluate() {
 		return this.evaluate(Collections.emptyMap());
 	}
 }

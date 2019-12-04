@@ -11,15 +11,16 @@ public class TokenizerTest {
 
 	@Test
 	public void testTokenizer() {
-		String input = "(1+2-3*4/5)";
-		Assert.assertEquals(Arrays.asList("(", "1", "+", "2", "-", "3", "*", "4", "/", "5", ")"),
+		String input = "((a|b)&c)";
+		Assert.assertEquals(Arrays.asList("(", "(", "a", "|", "b", ")", "&", "c", ")"),
 				Tokenizer.tokenize(input));
 	}
 	
 	@Test
 	public void testTokenizerWS() {
-		String input = " ( 1 + 2 - 3 * 4 / 5 ) ";
-		Assert.assertEquals(Arrays.asList("(", "1", "+", "2", "-", "3", "*", "4", "/", "5", ")"),
+		String input = "( ( a | b ) & ( c > ( d # f ) )";
+		Assert.assertEquals(Arrays.asList("(", "(", "a", "|", "b", ")", "&", "(", "c", ">", "(", "d",
+				"#", "f", ")", ")"),
 				Tokenizer.tokenize(input));
 	}
 	
@@ -29,41 +30,9 @@ public class TokenizerTest {
 		Assert.assertEquals(Collections.emptyList(), Tokenizer.tokenize(input));
 	}
 	
-	@Test
-	public void testTokenizerJustNumber() {
-		String input = "1234";
-		Assert.assertEquals(Arrays.asList("1234"), Tokenizer.tokenize(input));
-		//print input
-		System.out.println("Input:"+(input));
-		//print out output
-		System.out.println("Tokenized:"+Tokenizer.tokenize(input));
-	}
-	
 	@Test(expected=RuntimeException.class)
 	public void testTokenizerError() {
 		String input = " 1 !";
 		Tokenizer.tokenize(input);
-	}
-	
-	@Test
-	public void testVars() {
-		String input = "(a+b-c*d/e)";
-		Assert.assertEquals(Arrays.asList("(", "a", "+", "b", "-", "c", "*", "d", "/", "e", ")"),
-				Tokenizer.tokenize(input));
-		//print input
-		System.out.println("Input:"+(input));
-		//print out output
-		System.out.println("Tokenized:"+Tokenizer.tokenize(input));
-	}
-	@Test
-	public void testVarsWS() {
-		String input = "( a +b -c * d / e)";
-		Assert.assertEquals(Arrays.asList("(", "a", "+", "b", "-", "c", "*", "d", "/", "e", ")"),
-				Tokenizer.tokenize(input));
-		//print input
-		System.out.println("Input:"+(input));
-		//print out output
-		System.out.println("Tokenized:"+Tokenizer.tokenize(input));
-		System.out.println("BELLABELLABELLA");
 	}
 }

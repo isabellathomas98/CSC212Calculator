@@ -9,13 +9,16 @@ public class Variable implements Expr {
 		this.name = name;
 	}
 
+	/*
+	 * 
+	 */
 	@Override
-	public int evaluate(Map<String, Integer> vars) {
-		Integer value = vars.get(name);
-		if (value == null) {
+	public Boolean evaluate(Map<String, Boolean> vars) {
+		Boolean truthValue = vars.get(name);
+		if (truthValue == null) {
 			throw new BadNameError(name);
 		}
-		return value;
+		return truthValue;
 	}
 
 	@SuppressWarnings("serial")

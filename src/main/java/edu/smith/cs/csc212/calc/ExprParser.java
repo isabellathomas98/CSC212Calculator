@@ -35,18 +35,11 @@ public class ExprParser {
 	}
 
 	/**
-	 * It's either a number or a variable. If it starts with a number, try it as a
-	 * number.
-	 * 
-	 * @return Value or Variable.
+	 * @return Variable.
 	 */
-	public Expr readNumber() {
+	public Expr readVar() {
 		String value = tokens.get(position++);
-		if (Character.isDigit(value.charAt(0))) {
-			return new Value(Integer.parseInt(value));
-		} else {
-			return new Variable(value);
-		}
+		return new Variable(value);
 	}
 
 	/**
@@ -68,13 +61,13 @@ public class ExprParser {
 	 * 
 	 * @return a tree of all the multiplication/division expressions we can find.
 	 */
-	public Expr readMulDivExpr() {
+	public Expr logExpr() {
 		Expr left = readExpr();
 
 		while (position < tokens.size()) {
 			String tok = peek();
 
-			if (tok.equals("*") || tok.equals("/")) {
+			if (tok.equals("&") || tok.equals("|") || tok.equals("#") || tok.equals("~") || tok.equals(">")) {
 				position++;
 				Expr right = readExpr();
 				left = new BinaryExpr(tok, left, right);
@@ -93,14 +86,14 @@ public class ExprParser {
 	 * @return a tree of all the multiplication/division expressions we can find.
 	 */
 	public Expr readAddSubExpr() {
-		Expr left = readMulDivExpr();
+		Expr left = logExpr();
 
 		while (position < tokens.size()) {
 			String tok = peek();
 
 			if (tok.equals("+") || tok.equals("-")) {
 				position++;
-				Expr right = readMulDivExpr();
+				Expr right = logExpr();
 				left = new BinaryExpr(tok, left, right);
 			} else {
 				break;
@@ -118,11 +111,12 @@ public class ExprParser {
 	 *       | '-' expr 
 	 *       | number 
 	 *       | variable
-	 * addSubExpr := mulDivExpr '+' mulDivExpr
-	 *             | mulDivExpr '-' mulDivExpr
-	 *             | mulDivExpr
-	 * mulDivExpr := expr '*' expr
-	 *             | expr '/' expr
+
+	 * logExpr := expr '&' expr
+	 *             | expr '|' expr
+	 *             | expr '#' expr
+	 *             | '~' expr
+	 *             | expr '>' expr
 	 *             | expr
 	 * </pre>
 	 * 
@@ -135,14 +129,11 @@ public class ExprParser {
 		String tok = tokens.get(position);
 		if (tok.equals("(")) {
 			expectExact("(");
-			Expr e = readAddSubExpr();
+			Expr e = logExpr();
 			expectExact(")");
 			return e;
-		} else if (tok.equals("-")) {
-			expectExact("-");
-			return new BinaryExpr("-", new Value(0), readExpr());
 		} else {
-			return readNumber();
+			return readVar();
 		}
 	}
 

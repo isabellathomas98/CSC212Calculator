@@ -7,7 +7,7 @@ import java.util.Map;
  * @author jfoley
  *
  */
-public class Value implements Expr {
+public class Value{
 	/**
 	 * What number is it?
 	 */
@@ -19,11 +19,11 @@ public class Value implements Expr {
 	public Value(int n) {
 		this.num = n;
 	}
-	@Override
+
 	public int evaluate(Map<String, Integer> vars) {
 		return num;
 	}
-	@Override
+
 	public String toString() {
 		return ""+this.num;
 	}

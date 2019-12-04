@@ -17,16 +17,23 @@ public class BinaryExpr implements Expr {
 	}
 	@Override
 	//ours should take in only strings (variables like p,q,r and operators like and or etc.)
-	public int evaluate(Map<String, Integer> vars) {
+	public Boolean evaluate(Map<String, Boolean> vars) {
 		switch(op) {
-			case "+":
-				return left.evaluate(vars) + right.evaluate(vars);
-			case "-":
-				return left.evaluate(vars) - right.evaluate(vars);
-			case "*":
-				return left.evaluate(vars) * right.evaluate(vars);
-			case "/":
-				return left.evaluate(vars) / right.evaluate(vars);
+			// and
+			case "&":
+				return left.evaluate(vars) && right.evaluate(vars);
+			// or
+			case "|":
+				return left.evaluate(vars) || right.evaluate(vars);
+			// xor
+			case "#":
+				return (left.evaluate(vars) || right.evaluate(vars)) && !(left.evaluate(vars) && right.evaluate(vars));
+			// not
+			case "~":
+				return !right.evaluate(vars);
+			// if/then
+			case ">":
+				return !left.evaluate(vars) || right.evaluate(vars);
 			default:
 				throw new UnsupportedOperationException(op);
 		}
