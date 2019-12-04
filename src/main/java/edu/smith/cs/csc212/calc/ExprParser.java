@@ -84,13 +84,12 @@ public class ExprParser {
 	 * The BNF for this looks like:
 	 * <pre>
 	 * expr := '(' + logExpr + ')' 
-	 *       | '-' expr
+	 *       | '~' expr
 	 *       | variable
 
 	 * logExpr := expr '&' expr
 	 *             | expr '|' expr
 	 *             | expr '#' expr
-	 *             | '~' expr
 	 *             | expr '>' expr
 	 *             | expr
 	 * </pre>
