@@ -132,6 +132,9 @@ public class ExprParser {
 			Expr e = logExpr();
 			expectExact(")");
 			return e;
+		} else if (tok.equals("~")) {
+			expectExact("~");
+			return new BinaryExpr("~", new Variable(null), readExpr());
 		} else {
 			return readVar();
 		}
