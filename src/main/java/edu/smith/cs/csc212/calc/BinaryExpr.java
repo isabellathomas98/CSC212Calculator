@@ -1,6 +1,7 @@
 package edu.smith.cs.csc212.calc;
 
 import java.util.Map;
+import java.util.Set;
 
 public class BinaryExpr implements Expr {
 	private String op;
@@ -41,5 +42,10 @@ public class BinaryExpr implements Expr {
 	@Override
 	public String toString() {
 		return "("+op+" "+left+" "+right+")";
+	}
+	@Override
+	public void findVars(Set<String> output) {
+		left.findVars(output);
+		right.findVars(output);		
 	}
 }

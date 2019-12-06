@@ -2,6 +2,7 @@ package edu.smith.cs.csc212.calc;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This is an expression tree.
@@ -23,4 +24,6 @@ public interface Expr {
 	public default Boolean evaluate() {
 		return this.evaluate(Collections.emptyMap());
 	}
+	
+	public void findVars(Set<String> output);
 }

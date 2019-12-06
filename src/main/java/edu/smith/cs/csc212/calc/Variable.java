@@ -1,6 +1,7 @@
 package edu.smith.cs.csc212.calc;
 
 import java.util.Map;
+import java.util.Set;
 
 public class Variable implements Expr {
 	private String name;
@@ -26,5 +27,11 @@ public class Variable implements Expr {
 		public BadNameError(String what) {
 			super(what);
 		}
+	}
+
+	@Override
+	public void findVars(Set<String> output) {
+		output.add(name);
+		
 	}
 }

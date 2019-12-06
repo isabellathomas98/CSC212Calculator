@@ -111,6 +111,8 @@ public class ExprParserTest {
 		vars.put("a", false);
 		Assert.assertEquals(true, ExprParser.parse("~a").evaluate(vars));
 		Assert.assertEquals(false, ExprParser.parse("~~a").evaluate(vars));
+		vars.put("b", true);
+		Assert.assertEquals(false,ExprParser.parse("a|~b").evaluate(vars));
 	}
 	
 	@Test
