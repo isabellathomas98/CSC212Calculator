@@ -49,7 +49,7 @@ public class Main {
 			truthValues = truthComboMaker(truthValues);
 		}
 		int barLength=inputVars.size();
-		String bar="****************".repeat(barLength);
+		String bar="~~~~~~~~~~~~~~~~~~".repeat(barLength);
 		System.out.println(bar);
 		System.out.format("%20s","TRUTH TABLE   by Isabel and Bella"+"\n");
 		System.out.println(bar);
