@@ -33,11 +33,8 @@ public class Variable implements Expr {
 	@Override
 	public void findVars(Set<String> output) {
 		//to avoid null column when using negation
-		if (name==null) {
-			//do nothing
+		if (name!=null) {
+			output.add(name);
 		}
-		else
-		output.add(name);
-		
 	}
 }
