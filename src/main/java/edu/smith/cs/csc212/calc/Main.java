@@ -3,6 +3,7 @@ package edu.smith.cs.csc212.calc;
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -47,28 +48,40 @@ public class Main {
 		for (int i = 0; i < inputVars.size(); i++) {
 			truthValues = truthComboMaker(truthValues);
 		}
-		
+		int barLength=inputVars.size();
+		String bar="****************".repeat(barLength);
+		System.out.println(bar);
+		System.out.format("%20s","TRUTH TABLE   by Isabel and Bella"+"\n");
+		System.out.println(bar);
+		for(String var : inputVars) {
+			System.out.format("%8s ",var+" ");}
+		System.out.format("%6s %13s","*",input);
+		System.out.println(" ");
+		System.out.println(bar);
 		for (ArrayList<Boolean> truthValueCombo : truthValues) {
 			Map<String, Boolean> truthAssignments = new HashMap<>();
 			int tvCounter = 0;
 			for (String var : inputVars) {
 				truthAssignments.put(var, truthValueCombo.get(tvCounter));
-				System.out.println(var+ ": " + truthValueCombo.get(tvCounter));
+				
+				System.out.format("%10s",truthValueCombo.get(tvCounter).toString().toUpperCase()+"    ");
 				tvCounter++;
 			}
+			System.out.format("%3s %10s","*",ExprParser.parse(input).evaluate(truthAssignments).toString().toUpperCase()+"\n");
+			
 		}
+		System.out.println(bar);
 		
-		//prints out who;e expression
-		System.out.println("Expression: "+input);
-		//prints out variables
-		System.out.println("Variables: " +inputVars);
-		System.out.println("Truth values: " +truthValues);
-		System.out.println("**********_____________________");
-
-	}
+			}
+		
+		
+		
+	
 	
 	public static void main(String[] args) {
-		tablePrinter("a | b");
+		tablePrinter("a | b | c ");
+		
+		
 
   }
 
