@@ -106,6 +106,7 @@ public class ExprParser {
 		} else if (tok.equals("~")) {
 			expectExact("~");
 			return new BinaryExpr("~", new Variable(null), readExpr());
+			
 		} else {
 			return readVar();
 		}

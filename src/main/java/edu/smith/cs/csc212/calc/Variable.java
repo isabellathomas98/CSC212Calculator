@@ -7,6 +7,7 @@ public class Variable implements Expr {
 	private String name;
 
 	public Variable(String name) {
+		
 		this.name = name;
 	}
 
@@ -31,6 +32,11 @@ public class Variable implements Expr {
 
 	@Override
 	public void findVars(Set<String> output) {
+		//to avoid null column when using negation
+		if (name==null) {
+			//do nothing
+		}
+		else
 		output.add(name);
 		
 	}
